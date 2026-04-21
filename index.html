@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>APUSGUARD — Hama Minggat, Panen Melesat</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Fraunces:ital,wght@0,700;0,900;1,700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green-deep: #1a4d2e;
+    --green-mid: #2d7a4f;
+    --green-bright: #4caf71;
+    --green-light: #a8e6bc;
+    --green-pale: #e8f7ee;
+    --amber: #f59e0b;
+    --amber-light: #fef3c7;
+    --soil: #7c5c3a;
+    --white: #ffffff;
+    --off-white: #f9fbf9;
+    --text-dark: #0f2318;
+    --text-mid: #3d5a47;
+    --text-light: #6b8a76;
+    --radius: 16px;
+    --radius-lg: 24px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background: var(--off-white);
+    color: var(--text-dark);
+    overflow-x: hidden;
+  }
+
+  /* ===== NAV ===== */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(249,251,249,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(45,122,79,0.1);
+    padding: 0 5%;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 64px;
+  }
+  .nav-logo {
+    font-family: 'Fraunces', serif;
+    font-size: 1.5rem; font-weight: 900;
+    color: var(--green-deep);
+    letter-spacing: -0.5px;
+  }
+  .nav-logo span { color: var(--green-bright); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    text-decoration: none; color: var(--text-mid);
+    font-size: 0.9rem; font-weight: 500;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--green-mid); }
+  .nav-cta {
+    background: var(--green-deep);
+    color: white !important;
+    padding: 0.5rem 1.2rem;
+    border-radius: 100px;
+    font-weight: 600 !important;
+    font-size: 0.85rem !important;
+    transition: background 0.2s !important;
+  }
+  .nav-cta:hover { background: var(--green-mid) !important; }
+
+  /* ===== HERO ===== */
+  .hero {
+    min-height: 100vh;
+    background: linear-gradient(160deg, var(--green-deep) 0%, #1e5e38 60%, #2d7a4f 100%);
+    display: flex; align-items: center;
+    padding: 80px 5% 60px;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%234caf71' fill-opacity='0.06'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  .hero-content {
+    position: relative; z-index: 2;
+    max-width: 600px;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: rgba(76,175,113,0.2);
+    border: 1px solid rgba(76,175,113,0.4);
+    color: var(--green-light);
+    padding: 0.4rem 1rem;
+    border-radius: 100px;
+    font-size: 0.8rem; font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+  .hero-badge::before { content: '🌱'; font-size: 1rem; }
+  .hero h1 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(2.8rem, 6vw, 4.5rem);
+    font-weight: 900;
+    color: white;
+    line-height: 1.05;
+    margin-bottom: 1.5rem;
+    letter-spacing: -1px;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--green-light);
+  }
+  .hero-tagline {
+    font-size: 1.25rem;
+    color: rgba(255,255,255,0.75);
+    font-weight: 500;
+    margin-bottom: 0.75rem;
+  }
+  .hero-sub {
+    font-size: 1rem;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+    max-width: 480px;
+  }
+  .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--amber);
+    color: var(--text-dark);
+    padding: 0.9rem 2rem;
+    border-radius: 100px;
+    font-weight: 700; font-size: 1rem;
+    text-decoration: none;
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 20px rgba(245,158,11,0.4);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(245,158,11,0.5); }
+  .btn-secondary {
+    background: rgba(255,255,255,0.12);
+    color: white;
+    padding: 0.9rem 2rem;
+    border-radius: 100px;
+    font-weight: 600; font-size: 1rem;
+    text-decoration: none;
+    border: 1px solid rgba(255,255,255,0.25);
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    transition: background 0.2s;
+  }
+  .btn-secondary:hover { background: rgba(255,255,255,0.2); }
+  .hero-visual {
+    position: absolute; right: 5%; top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+  }
+  .product-bottle {
+    width: 280px;
+    background: white;
+    border-radius: 120px 120px 80px 80px;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.3);
+    animation: float 4s ease-in-out infinite;
+  }
+  @keyframes float {
+    0%,100% { transform: translateY(0px); }
+    50% { transform: translateY(-12px); }
+  }
+  .bottle-label {
+    background: linear-gradient(135deg, var(--green-deep), var(--green-mid));
+    border-radius: 80px 80px 60px 60px;
+    padding: 2rem 1rem 1.5rem;
+    margin-bottom: 0.75rem;
+  }
+  .bottle-brand {
+    font-family: 'Fraunces', serif;
+    font-size: 1.8rem; font-weight: 900;
+    color: white; letter-spacing: -0.5px;
+  }
+  .bottle-type {
+    font-size: 0.7rem; font-weight: 700;
+    color: var(--green-light);
+    letter-spacing: 0.1em; text-transform: uppercase;
+    margin-top: 0.25rem;
+  }
+  .bottle-img-area {
+    font-size: 3.5rem; margin: 0.5rem 0;
+  }
+  .bottle-volume {
+    font-size: 0.85rem; font-weight: 700;
+    color: var(--text-mid);
+    background: var(--green-pale);
+    padding: 0.3rem 1rem;
+    border-radius: 100px;
+    display: inline-block;
+  }
+  .hero-stats {
+    position: absolute; bottom: 40px; left: 5%;
+    display: flex; gap: 2rem; z-index: 2;
+  }
+  .stat-item { text-align: center; }
+  .stat-num {
+    font-family: 'Fraunces', serif;
+    font-size: 1.8rem; font-weight: 900;
+    color: var(--green-light);
+  }
+  .stat-label {
+    font-size: 0.75rem; color: rgba(255,255,255,0.5);
+    margin-top: 0.1rem;
+  }
+
+  /* ===== SECTION BASE ===== */
+  section { padding: 80px 5%; }
+  .section-label {
+    font-size: 0.75rem; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--green-mid);
+    margin-bottom: 0.75rem;
+  }
+  .section-title {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 900; line-height: 1.1;
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+    letter-spacing: -0.5px;
+  }
+  .section-desc {
+    font-size: 1.05rem; color: var(--text-light);
+    line-height: 1.7; max-width: 560px;
+  }
+
+  /* ===== KEUNGGULAN ===== */
+  .keunggulan { background: white; }
+  .keunggulan-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem; margin-top: 3rem;
+  }
+  .k-header { grid-column: 1 / -1; }
+  .k-card {
+    background: var(--green-pale);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    border: 1px solid rgba(45,122,79,0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .k-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(26,77,46,0.1); }
+  .k-icon { font-size: 2rem; margin-bottom: 1rem; }
+  .k-title {
+    font-weight: 700; font-size: 1.05rem;
+    color: var(--green-deep);
+    margin-bottom: 0.5rem;
+  }
+  .k-desc { font-size: 0.9rem; color: var(--text-mid); line-height: 1.6; }
+  .k-card.highlight {
+    background: var(--green-deep); color: white;
+    grid-column: 1 / -1;
+  }
+  .k-card.highlight .k-title { color: var(--green-light); }
+  .k-card.highlight .k-desc { color: rgba(255,255,255,0.7); }
+  .haki-badge {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: rgba(76,175,113,0.2);
+    border: 1px solid rgba(76,175,113,0.4);
+    color: var(--green-light);
+    padding: 0.35rem 1rem;
+    border-radius: 100px;
+    font-size: 0.78rem; font-weight: 600;
+    margin-top: 0.75rem;
+  }
+
+  /* ===== HARGA ===== */
+  .harga { background: var(--off-white); }
+  .harga-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem; margin-top: 3rem;
+  }
+  .harga-card {
+    background: white;
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    border: 2px solid transparent;
+    transition: all 0.2s;
+    position: relative; overflow: hidden;
+  }
+  .harga-card:hover { border-color: var(--green-bright); transform: translateY(-4px); }
+  .harga-card.recommended {
+    border-color: var(--green-mid);
+    box-shadow: 0 8px 40px rgba(45,122,79,0.15);
+  }
+  .rec-badge {
+    position: absolute; top: 1rem; right: 1rem;
+    background: var(--green-mid); color: white;
+    font-size: 0.7rem; font-weight: 700;
+    padding: 0.2rem 0.7rem; border-radius: 100px;
+    letter-spacing: 0.05em; text-transform: uppercase;
+  }
+  .harga-tier {
+    font-size: 0.8rem; font-weight: 700;
+    color: var(--text-light); text-transform: uppercase;
+    letter-spacing: 0.08em; margin-bottom: 0.5rem;
+  }
+  .harga-price {
+    font-family: 'Fraunces', serif;
+    font-size: 2.5rem; font-weight: 900;
+    color: var(--green-deep); line-height: 1;
+  }
+  .harga-price span { font-size: 1rem; font-weight: 500; color: var(--text-light); }
+  .harga-margin {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    background: var(--green-pale);
+    color: var(--green-mid);
+    padding: 0.3rem 0.8rem; border-radius: 100px;
+    font-size: 0.82rem; font-weight: 700;
+    margin: 0.75rem 0;
+  }
+  .harga-hpp {
+    font-size: 0.85rem; color: var(--text-light);
+    margin-bottom: 1.5rem;
+  }
+  .harga-features { list-style: none; }
+  .harga-features li {
+    font-size: 0.9rem; color: var(--text-mid);
+    padding: 0.4rem 0;
+    border-bottom: 1px solid var(--green-pale);
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .harga-features li::before { content: '✓'; color: var(--green-bright); font-weight: 700; }
+  .harga-btn {
+    display: block; text-align: center;
+    margin-top: 1.5rem;
+    padding: 0.8rem;
+    border-radius: 100px;
+    font-weight: 700; font-size: 0.9rem;
+    text-decoration: none;
+    background: var(--green-pale);
+    color: var(--green-deep);
+    transition: all 0.2s;
+  }
+  .harga-card.recommended .harga-btn {
+    background: var(--green-deep); color: white;
+  }
+  .harga-btn:hover { opacity: 0.85; }
+
+  /* ===== PANDUAN DOSIS ===== */
+  .panduan { background: white; }
+  .panduan-tabs {
+    display: flex; gap: 0.5rem;
+    margin: 2.5rem 0 2rem;
+    flex-wrap: wrap;
+  }
+  .tab-btn {
+    padding: 0.6rem 1.4rem;
+    border-radius: 100px;
+    border: 2px solid var(--green-pale);
+    background: white;
+    color: var(--text-mid);
+    font-weight: 600; font-size: 0.9rem;
+    cursor: pointer; transition: all 0.2s;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+  }
+  .tab-btn.active {
+    background: var(--green-deep); color: white;
+    border-color: var(--green-deep);
+  }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+  .dosis-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+  }
+  .dosis-card {
+    background: var(--green-pale);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    border-left: 4px solid var(--green-mid);
+  }
+  .dosis-tanaman {
+    font-weight: 700; font-size: 1rem;
+    color: var(--green-deep); margin-bottom: 0.75rem;
+  }
+  .dosis-detail { font-size: 0.85rem; color: var(--text-mid); line-height: 1.7; }
+  .dosis-highlight {
+    background: var(--green-deep);
+    color: white;
+    border-radius: 8px;
+    padding: 0.4rem 0.8rem;
+    font-weight: 700; font-size: 1rem;
+    display: inline-block; margin: 0.5rem 0;
+  }
+  .dosis-warning {
+    background: var(--amber-light);
+    border: 1px solid rgba(245,158,11,0.3);
+    border-radius: var(--radius);
+    padding: 1rem 1.25rem;
+    margin-top: 1.5rem;
+    font-size: 0.88rem; color: #92400e;
+    display: flex; gap: 0.75rem; align-items: flex-start;
+  }
+  .dosis-warning::before { content: '⚠️'; flex-shrink: 0; }
+
+  /* ===== VIDEO ===== */
+  .video-section { background: var(--green-deep); }
+  .video-section .section-title { color: white; }
+  .video-section .section-desc { color: rgba(255,255,255,0.6); }
+  .video-section .section-label { color: var(--green-light); }
+  .video-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem; margin-top: 3rem;
+  }
+  .video-card {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: transform 0.2s;
+  }
+  .video-card:hover { transform: translateY(-4px); }
+  .video-thumb {
+    background: rgba(76,175,113,0.15);
+    height: 160px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 3rem;
+    cursor: pointer; position: relative;
+  }
+  .play-btn {
+    position: absolute;
+    width: 56px; height: 56px;
+    background: white; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    transition: transform 0.2s;
+  }
+  .video-thumb:hover .play-btn { transform: scale(1.1); }
+  .video-info { padding: 1.25rem; }
+  .video-title {
+    font-weight: 700; font-size: 0.95rem;
+    color: white; margin-bottom: 0.4rem;
+  }
+  .video-desc { font-size: 0.82rem; color: rgba(255,255,255,0.5); }
+  .video-coming {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    background: rgba(245,158,11,0.2);
+    color: var(--amber);
+    padding: 0.25rem 0.75rem; border-radius: 100px;
+    font-size: 0.75rem; font-weight: 600;
+    margin-top: 0.5rem;
+  }
+
+  /* ===== BELI SEKARANG ===== */
+  .beli { background: var(--off-white); }
+  .marketplace-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem; margin-top: 3rem;
+  }
+  .marketplace-card {
+    background: white;
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    text-align: center;
+    border: 2px solid transparent;
+    transition: all 0.25s;
+    text-decoration: none;
+  }
+  .marketplace-card:hover { transform: translateY(-6px); }
+  .mp-icon { font-size: 3rem; margin-bottom: 1rem; }
+  .mp-name {
+    font-weight: 800; font-size: 1.2rem;
+    margin-bottom: 0.4rem;
+  }
+  .mp-desc { font-size: 0.85rem; color: var(--text-light); margin-bottom: 1.25rem; }
+  .mp-btn {
+    display: block;
+    padding: 0.7rem 1.5rem;
+    border-radius: 100px;
+    font-weight: 700; font-size: 0.9rem;
+    transition: opacity 0.2s;
+  }
+  .mp-btn:hover { opacity: 0.85; }
+  .card-wa { border-color: #25d366; }
+  .card-wa .mp-name { color: #128c7e; }
+  .card-wa .mp-btn { background: #25d366; color: white; }
+  .card-tokped { border-color: #03ac0e; }
+  .card-tokped .mp-name { color: #03ac0e; }
+  .card-tokped .mp-btn { background: #03ac0e; color: white; }
+  .card-shopee { border-color: #f53d2d; }
+  .card-shopee .mp-name { color: #f53d2d; }
+  .card-shopee .mp-btn { background: #f53d2d; color: white; }
+
+  /* ===== TENTANG ===== */
+  .tentang { background: white; }
+  .tentang-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem; align-items: center;
+  }
+  .tentang-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem; margin-top: 2.5rem;
+  }
+  .t-stat {
+    background: var(--green-pale);
+    border-radius: var(--radius);
+    padding: 1.25rem;
+  }
+  .t-stat-num {
+    font-family: 'Fraunces', serif;
+    font-size: 1.8rem; font-weight: 900;
+    color: var(--green-deep);
+  }
+  .t-stat-label { font-size: 0.82rem; color: var(--text-light); margin-top: 0.2rem; }
+  .tentang-riset {
+    background: var(--green-deep);
+    border-radius: var(--radius-lg);
+    padding: 2.5rem;
+    color: white;
+  }
+  .riset-title {
+    font-family: 'Fraunces', serif;
+    font-size: 1.4rem; font-weight: 700;
+    color: var(--green-light);
+    margin-bottom: 1rem;
+  }
+  .riset-item {
+    display: flex; gap: 0.75rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    font-size: 0.9rem; color: rgba(255,255,255,0.7);
+    align-items: flex-start;
+  }
+  .riset-item:last-child { border-bottom: none; }
+  .riset-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--green-bright); flex-shrink: 0;
+    margin-top: 6px;
+  }
+
+  /* ===== FAQ ===== */
+  .faq { background: var(--off-white); }
+  .faq-list { margin-top: 2.5rem; max-width: 700px; }
+  .faq-item {
+    background: white;
+    border-radius: var(--radius);
+    margin-bottom: 0.75rem;
+    border: 1px solid rgba(45,122,79,0.1);
+    overflow: hidden;
+  }
+  .faq-q {
+    padding: 1.25rem 1.5rem;
+    font-weight: 600; font-size: 0.95rem;
+    cursor: pointer;
+    display: flex; justify-content: space-between; align-items: center;
+    color: var(--text-dark);
+    user-select: none;
+  }
+  .faq-q::after { content: '+'; font-size: 1.3rem; color: var(--green-mid); transition: transform 0.2s; }
+  .faq-item.open .faq-q::after { transform: rotate(45deg); }
+  .faq-a {
+    max-height: 0; overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s;
+    font-size: 0.9rem; color: var(--text-mid); line-height: 1.7;
+    padding: 0 1.5rem;
+  }
+  .faq-item.open .faq-a { max-height: 300px; padding: 0 1.5rem 1.25rem; }
+
+  /* ===== FOOTER ===== */
+  footer {
+    background: var(--text-dark);
+    color: rgba(255,255,255,0.6);
+    padding: 3rem 5%;
+    text-align: center;
+  }
+  .footer-logo {
+    font-family: 'Fraunces', serif;
+    font-size: 1.8rem; font-weight: 900;
+    color: white; margin-bottom: 0.5rem;
+  }
+  .footer-logo span { color: var(--green-bright); }
+  .footer-tagline { font-size: 0.9rem; margin-bottom: 1.5rem; }
+  .footer-links { display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap; margin-bottom: 2rem; }
+  .footer-links a { color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.85rem; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--green-bright); }
+  .footer-copy { font-size: 0.8rem; color: rgba(255,255,255,0.3); }
+  .haki-footer {
+    display: inline-block;
+    background: rgba(76,175,113,0.15);
+    border: 1px solid rgba(76,175,113,0.3);
+    color: var(--green-light);
+    padding: 0.4rem 1rem; border-radius: 100px;
+    font-size: 0.78rem; margin-bottom: 1.5rem;
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 768px) {
+    .hero-visual { display: none; }
+    .keunggulan-grid { grid-template-columns: 1fr; }
+    .keunggulan-grid .k-header { grid-column: 1; }
+    .tentang-inner { grid-template-columns: 1fr; gap: 2rem; }
+    .nav-links { display: none; }
+    .hero-stats { gap: 1.2rem; }
+  }
+
+  /* ===== SCROLL ANIMATION ===== */
+  .reveal {
+    opacity: 0; transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.visible { opacity: 1; transform: none; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">APUS<span>GUARD</span></div>
+  <ul class="nav-links">
+    <li><a href="#keunggulan">Keunggulan</a></li>
+    <li><a href="#panduan">Panduan Dosis</a></li>
+    <li><a href="#harga">Harga</a></li>
+    <li><a href="#beli">Beli Sekarang</a></li>
+    <li><a href="https://wa.me/6281234567890" class="nav-cta">Chat WA</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">Bio-Fungisida Hayati Ber-HAKI</div>
+    <h1>Hama Minggat,<br><em>Panen Melesat.</em></h1>
+    <p class="hero-tagline">Fungisida hayati dari rebung bambu apus lokal</p>
+    <p class="hero-sub">Solusi perlindungan tanaman hortikultura dan hidroponik yang terbukti secara ilmiah, ramah lingkungan, dan aman tanpa residu kimia.</p>
+    <div class="hero-actions">
+      <a href="#beli" class="btn-primary">🛒 Beli Sekarang</a>
+      <a href="#panduan" class="btn-secondary">📋 Panduan Dosis</a>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="product-bottle">
+      <div class="bottle-label">
+        <div class="bottle-brand">APUSGUARD</div>
+        <div class="bottle-type">Bio-Fungisida Hayati</div>
+        <div class="bottle-img-area">🌿</div>
+      </div>
+      <div class="bottle-volume">250 ml</div>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="stat-item">
+      <div class="stat-num">29mm</div>
+      <div class="stat-label">Zona hambat max</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">2</div>
+      <div class="stat-label">Jamur diuji</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">HAKI</div>
+      <div class="stat-label">Terdaftar Resmi</div>
+    </div>
+  </div>
+</section>
+
+<!-- KEUNGGULAN -->
+<section class="keunggulan" id="keunggulan">
+  <div class="keunggulan-grid reveal">
+    <div class="k-header">
+      <div class="section-label">Mengapa APUSGUARD?</div>
+      <h2 class="section-title">Bukan sekadar<br>fungisida biasa</h2>
+      <p class="section-desc">Satu-satunya bio-fungisida berbahan rebung bambu apus lokal yang telah diuji di laboratorium Universitas Jember dan dilindungi HAKI resmi.</p>
+    </div>
+    <div class="k-card">
+      <div class="k-icon">🔬</div>
+      <div class="k-title">Terbukti Ilmiah</div>
+      <div class="k-desc">Zona hambat rata-rata 29 mm terhadap Alternaria solani dan 12,2 mm terhadap Fusarium oxysporum berdasarkan uji laboratorium resmi.</div>
+    </div>
+    <div class="k-card">
+      <div class="k-icon">🌱</div>
+      <div class="k-title">100% Bahan Alam</div>
+      <div class="k-desc">Dibuat dari rebung dan daun Gigantochloa apus yang mengandung flavonoid, alkaloid, saponin, dan tanin sebagai agen antifungal alami.</div>
+    </div>
+    <div class="k-card">
+      <div class="k-icon">💧</div>
+      <div class="k-title">Ideal untuk Hidroponik</div>
+      <div class="k-desc">Formulasi cair yang mudah dicampur ke dalam larutan nutrisi hidroponik tanpa merusak keseimbangan pH dan EC larutan.</div>
+    </div>
+    <div class="k-card">
+      <div class="k-icon">♻️</div>
+      <div class="k-title">Nol Residu Kimia</div>
+      <div class="k-desc">Biodegradable dan tidak meninggalkan residu berbahaya di tanah maupun air, mendukung sertifikasi pertanian organik.</div>
+    </div>
+    <div class="k-card highlight">
+      <div class="k-icon">📜</div>
+      <div class="k-title">Dilindungi HAKI Resmi Kemenkumham RI</div>
+      <div class="k-desc">Inovasi ini telah mendapatkan Surat Pencatatan Ciptaan dari Kementerian Hukum dan HAM Republik Indonesia, menjamin keabsahan dan kebaruan produk ini di pasar nasional.</div>
+      <div class="haki-badge">EC00202490869 · 25 Agustus 2024</div>
+    </div>
+  </div>
+</section>
+
+<!-- PANDUAN DOSIS -->
+<section class="panduan" id="panduan">
+  <div class="reveal">
+    <div class="section-label">Panduan Digital</div>
+    <h2 class="section-title">Cara pakai &amp; dosis<br>yang tepat</h2>
+    <p class="section-desc">Ikuti panduan dosis berikut untuk hasil optimal. Sesuaikan dengan jenis tanaman dan sistem budidaya kamu.</p>
+
+    <div class="panduan-tabs">
+      <button class="tab-btn active" onclick="switchTab('hidroponik')">🌊 Hidroponik</button>
+      <button class="tab-btn" onclick="switchTab('hortikultura')">🌿 Hortikultura (Tanah)</button>
+      <button class="tab-btn" onclick="switchTab('pencegahan')">🛡️ Pencegahan</button>
+    </div>
+
+    <div class="tab-content active" id="tab-hidroponik">
+      <div class="dosis-grid">
+        <div class="dosis-card">
+          <div class="dosis-tanaman">🍅 Tomat Hidroponik</div>
+          <div class="dosis-detail">
+            Dosis aplikasi:<br>
+            <span class="dosis-highlight">5 ml / 1 liter nutrisi</span><br>
+            Frekuensi: Setiap 7 hari sekali<br>
+            Waktu terbaik: Pagi hari sebelum jam 9<br>
+            Cara: Campurkan ke reservoir, aduk rata
+          </div>
+        </div>
+        <div class="dosis-card">
+          <div class="dosis-tanaman">🌶️ Cabai Hidroponik</div>
+          <div class="dosis-detail">
+            Dosis aplikasi:<br>
+            <span class="dosis-highlight">5 ml / 1 liter nutrisi</span><br>
+            Frekuensi: Setiap 7 hari sekali<br>
+            Waktu terbaik: Pagi atau sore hari<br>
+            Cara: Campurkan ke tangki nutrisi
+          </div>
+        </div>
+        <div class="dosis-card">
+          <div class="dosis-tanaman">🥬 Sayuran Daun</div>
+          <div class="dosis-detail">
+            Dosis aplikasi:<br>
+            <span class="dosis-highlight">3 ml / 1 liter nutrisi</span><br>
+            Frekuensi: Setiap 10 hari sekali<br>
+            Waktu terbaik: Pagi hari<br>
+            Cara: Larutkan ke sistem NFT/DFT
+          </div>
+        </div>
+        <div class="dosis-card">
+          <div class="dosis-tanaman">🫑 Paprika Hidroponik</div>
+          <div class="dosis-detail">
+            Dosis aplikasi:<br>
+            <span class="dosis-highlight">5 ml / 1 liter nutrisi</span><br>
+            Frekuensi: Setiap 7 hari sekali<br>
+            Waktu terbaik: Pagi hari<br>
+            Cara: Tambahkan ke larutan AB mix
+          </div>
+        </div>
+      </div>
+      <div class="dosis-warning">
+        Untuk sistem hidroponik, pastikan APUSGUARD sudah larut sempurna sebelum dialirkan ke akar. Lakukan uji pH setelah pencampuran untuk memastikan tidak ada perubahan signifikan (&lt;0.3 unit pH).
+      </div>
+    </div>
+
+    <div class="tab-content" id="tab-hortikultura">
+      <div class="dosis-grid">
+        <div class="dosis-card">
+          <div class="dosis-tanaman">🍅 Tomat &amp; Cabai</div>
+          <div class="dosis-detail">
+            Dosis semprot:<br>
+            <span class="dosis-highlight">10 ml / 1 liter air</span><br>
+            Frekuensi: Setiap 5–7 hari<br>
+            Waktu terbaik: Pagi hari<br>
+            Area: Semprot merata ke daun &amp; batang
+          </div>
+        </div>
+        <div class="dosis-card">
+          <div class="dosis-tanaman">🥔 Kentang</div>
+          <div class="dosis-detail">
+            Dosis semprot:<br>
+            <span class="dosis-highlight">10 ml / 1 liter air</span><br>
+            Frekuensi: Setiap 5 hari<br>
+            Waktu terbaik: Sore hari<br>
+            Area: Fokus pada daun bawah
+          </div>
+        </div>
+        <div class="dosis-card">
+          <div class="dosis-tanaman">🧅 Bawang Merah</div>
+          <div class="dosis-detail">
+            Dosis semprot:<br>
+            <span class="dosis-highlight">8 ml / 1 liter air</span><br>
+            Frekuensi: Setiap 7 hari<br>
+            Waktu terbaik: Pagi hari<br>
+            Area: Semprot seluruh bagian tanaman
+          </div>
+        </div>
+        <div class="dosis-card">
+          <div class="dosis-tanaman">🌿 Sayuran Umum</div>
+          <div class="dosis-detail">
+            Dosis semprot:<br>
+            <span class="dosis-highlight">8 ml / 1 liter air</span><br>
+            Frekuensi: Setiap 10 hari<br>
+            Waktu terbaik: Pagi hari<br>
+            Area: Semprot rata seluruh kanopi
+          </div>
+        </div>
+      </div>
+      <div class="dosis-warning">
+        Jangan aplikasikan saat hujan atau cuaca panas terik di atas jam 10 pagi. Simpan larutan yang sudah dicampur maksimal 24 jam. Kocok botol sebelum digunakan.
+      </div>
+    </div>
+
+    <div class="tab-content" id="tab-pencegahan">
+      <div class="dosis-grid">
+        <div class="dosis-card">
+          <div class="dosis-tanaman">🛡️ Preventif Rutin</div>
+          <div class="dosis-detail">
+            Dosis:<br>
+            <span class="dosis-highlight">5 ml / 1 liter air</span><br>
+            Frekuensi: Setiap 14 hari sekali<br>
+            Mulai dari: Awal tanam hingga panen<br>
+            Tujuan: Mencegah sebelum terinfeksi
+          </div>
+        </div>
+        <div class="dosis-card">
+          <div class="dosis-tanaman">⚡ Kuratif (Sudah Terinfeksi)</div>
+          <div class="dosis-detail">
+            Dosis:<br>
+            <span class="dosis-highlight">15 ml / 1 liter air</span><br>
+            Frekuensi: Setiap 3 hari sekali<br>
+            Durasi: 2–3 minggu hingga gejala hilang<br>
+            Tujuan: Menghentikan penyebaran jamur
+          </div>
+        </div>
+        <div class="dosis-card">
+          <div class="dosis-tanaman">🌱 Perlakuan Benih</div>
+          <div class="dosis-detail">
+            Dosis rendam:<br>
+            <span class="dosis-highlight">10 ml / 1 liter air</span><br>
+            Durasi rendam: 15–30 menit<br>
+            Setelah rendam: Tiriskan, langsung tanam<br>
+            Tujuan: Proteksi sejak dini
+          </div>
+        </div>
+        <div class="dosis-card">
+          <div class="dosis-tanaman">🏡 Media Tanam</div>
+          <div class="dosis-detail">
+            Dosis siram:<br>
+            <span class="dosis-highlight">20 ml / 1 liter air</span><br>
+            Frekuensi: Sebelum tanam, 1 kali<br>
+            Cara: Siramkan merata ke media tanam<br>
+            Tujuan: Sterilisasi media dari patogen
+          </div>
+        </div>
+      </div>
+      <div class="dosis-warning">
+        Untuk hasil pencegahan terbaik, mulai aplikasi sejak usia tanam 7 hari. Kombinasikan dengan praktik sanitasi kebun yang baik seperti pemangkasan daun terinfeksi dan rotasi tanaman.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VIDEO -->
+<section class="video-section" id="video">
+  <div class="reveal">
+    <div class="section-label">Tutorial Aplikasi</div>
+    <h2 class="section-title">Lihat cara pakainya<br>langsung di lapangan</h2>
+    <p class="section-desc">Video panduan praktis agar kamu bisa mengaplikasikan APUSGUARD dengan benar dan mendapat hasil optimal.</p>
+    <div class="video-grid">
+      <div class="video-card">
+        <div class="video-thumb" onclick="alert('Video segera hadir! Hubungi kami di WhatsApp untuk panduan langsung.')">
+          <span>🌊</span>
+          <div class="play-btn">▶</div>
+        </div>
+        <div class="video-info">
+          <div class="video-title">Cara pakai di sistem hidroponik</div>
+          <div class="video-desc">Panduan langkah demi langkah mencampurkan APUSGUARD ke reservoir nutrisi</div>
+          <div class="video-coming">⏳ Segera hadir</div>
+        </div>
+      </div>
+      <div class="video-card">
+        <div class="video-thumb" onclick="alert('Video segera hadir! Hubungi kami di WhatsApp untuk panduan langsung.')">
+          <span>🌿</span>
+          <div class="play-btn">▶</div>
+        </div>
+        <div class="video-info">
+          <div class="video-title">Aplikasi semprot hortikultura</div>
+          <div class="video-desc">Teknik penyemprotan yang benar untuk cabai, tomat, dan kentang di lahan terbuka</div>
+          <div class="video-coming">⏳ Segera hadir</div>
+        </div>
+      </div>
+      <div class="video-card">
+        <div class="video-thumb" onclick="alert('Video segera hadir! Hubungi kami di WhatsApp untuk panduan langsung.')">
+          <span>🔬</span>
+          <div class="play-btn">▶</div>
+        </div>
+        <div class="video-info">
+          <div class="video-title">Bukti uji laboratorium</div>
+          <div class="video-desc">Dokumentasi hasil pengujian zona hambat di Laboratorium Universitas Jember</div>
+          <div class="video-coming">⏳ Segera hadir</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HARGA -->
+<section class="harga" id="harga">
+  <div class="reveal">
+    <div class="section-label">Harga Produk</div>
+    <h2 class="section-title">Transparan &amp;<br>kompetitif</h2>
+    <p class="section-desc">Pilih harga yang sesuai dengan kebutuhanmu. Semua varian menggunakan formula dan kualitas yang sama persis.</p>
+    <div class="harga-cards">
+      <div class="harga-card">
+        <div class="harga-tier">Harga Ekonomis</div>
+        <div class="harga-price">Rp 55.000 <span>/ 250ml</span></div>
+        <div class="harga-margin">✓ Margin 45% · Hemat Rp 10.000</div>
+        <div class="harga-hpp">HPP: Rp 38.000 · Kamu hemat lebih banyak</div>
+        <ul class="harga-features">
+          <li>Bio-fungisida hayati 250ml</li>
+          <li>Panduan dosis digital</li>
+          <li>Konsultasi via WhatsApp</li>
+          <li>Gratis ongkir (min. 3 botol)</li>
+        </ul>
+        <a href="https://wa.me/6281234567890?text=Halo,%20saya%20mau%20pesan%20APUSGUARD%20harga%20ekonomis%20Rp55.000" class="harga-btn">Pesan via WA</a>
+      </div>
+      <div class="harga-card recommended">
+        <div class="rec-badge">Terlaris</div>
+        <div class="harga-tier">Harga Standar</div>
+        <div class="harga-price">Rp 65.000 <span>/ 250ml</span></div>
+        <div class="harga-margin">✓ Margin 71% · Nilai terbaik</div>
+        <div class="harga-hpp">HPP: Rp 38.000 · Margin Rp 27.000/botol</div>
+        <ul class="harga-features">
+          <li>Bio-fungisida hayati 250ml</li>
+          <li>Panduan dosis digital lengkap</li>
+          <li>Konsultasi via WhatsApp prioritas</li>
+          <li>Gratis ongkir (min. 2 botol)</li>
+          <li>Garansi produk bermasalah diganti</li>
+        </ul>
+        <a href="https://wa.me/6281234567890?text=Halo,%20saya%20mau%20pesan%20APUSGUARD%20harga%20standar%20Rp65.000" class="harga-btn">Pesan via WA</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BELI -->
+<section class="beli" id="beli">
+  <div class="reveal">
+    <div class="section-label">Beli Sekarang</div>
+    <h2 class="section-title">Tersedia di mana<br>kamu berbelanja</h2>
+    <p class="section-desc">Pesan langsung via WhatsApp Business untuk respons tercepat, atau temukan kami di marketplace favoritmu.</p>
+    <div class="marketplace-grid">
+      <a href="https://wa.me/6281234567890?text=Halo,%20saya%20ingin%20memesan%20APUSGUARD" class="marketplace-card card-wa">
+        <div class="mp-icon">💬</div>
+        <div class="mp-name">WhatsApp Business</div>
+        <div class="mp-desc">Respons cepat, konsultasi gratis, bisa COD area tertentu</div>
+        <span class="mp-btn">Chat Sekarang</span>
+      </a>
+      <a href="#" class="marketplace-card card-tokped" onclick="alert('Toko Tokopedia segera hadir!')">
+        <div class="mp-icon">🛍️</div>
+        <div class="mp-name">Tokopedia</div>
+        <div class="mp-desc">Tersedia di Tokopedia Agri — gratis ongkir &amp; bayar setelah terima</div>
+        <span class="mp-btn">Kunjungi Toko</span>
+      </a>
+      <a href="#" class="marketplace-card card-shopee" onclick="alert('Toko Shopee Agri segera hadir!')">
+        <div class="mp-icon">🧡</div>
+        <div class="mp-name">Shopee Agri</div>
+        <div class="mp-desc">Ada di Shopee Agri — cashback &amp; gratis ongkir seluruh Indonesia</div>
+        <span class="mp-btn">Kunjungi Toko</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- TENTANG -->
+<section class="tentang" id="tentang">
+  <div class="tentang-inner reveal">
+    <div>
+      <div class="section-label">Tentang APUSGUARD</div>
+      <h2 class="section-title">Inovasi lokal untuk<br>petani Indonesia</h2>
+      <p class="section-desc">APUSGUARD lahir dari riset ilmiah pelajar MAN 2 Kota Malang yang membuktikan potensi rebung bambu apus sebagai agen pengendali jamur patogen tanaman hortikultura.</p>
+      <div class="tentang-stats">
+        <div class="t-stat">
+          <div class="t-stat-num">29mm</div>
+          <div class="t-stat-label">Zona hambat maks. Alternaria solani</div>
+        </div>
+        <div class="t-stat">
+          <div class="t-stat-num">3,77</div>
+          <div class="t-stat-label">mg QE/g kadar flavonoid terukur</div>
+        </div>
+        <div class="t-stat">
+          <div class="t-stat-num">2024</div>
+          <div class="t-stat-label">Tahun HAKI terdaftar</div>
+        </div>
+        <div class="t-stat">
+          <div class="t-stat-num">Unej</div>
+          <div class="t-stat-label">Diuji di Universitas Jember</div>
+        </div>
+      </div>
+    </div>
+    <div class="tentang-riset">
+      <div class="riset-title">Didukung data ilmiah</div>
+      <div class="riset-item">
+        <div class="riset-dot"></div>
+        Uji zona hambat terhadap Fusarium oxysporum: rata-rata 12,2 mm pada konsentrasi 30%
+      </div>
+      <div class="riset-item">
+        <div class="riset-dot"></div>
+        Uji zona hambat terhadap Alternaria solani: rata-rata 29 mm pada konsentrasi 30%
+      </div>
+      <div class="riset-item">
+        <div class="riset-dot"></div>
+        Kandungan flavonoid 3,77 mg QE/g — terukur via spektrofotometri di Laboratorium UPA Universitas Jember
+      </div>
+      <div class="riset-item">
+        <div class="riset-dot"></div>
+        Mengandung alkaloid, saponin, dan tanin yang bekerja sinergis sebagai antifungal alami
+      </div>
+      <div class="riset-item">
+        <div class="riset-dot"></div>
+        HAKI No. EC00202490869 — Kemenkumham RI, 25 Agustus 2024
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq" id="faq">
+  <div class="reveal">
+    <div class="section-label">FAQ</div>
+    <h2 class="section-title">Pertanyaan yang<br>sering ditanyakan</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Apakah APUSGUARD aman untuk tanaman hidroponik?</div>
+        <div class="faq-a">Ya, APUSGUARD diformulasikan dari bahan alami yang tidak mengandung bahan kimia sintetis. Produk ini aman untuk sistem hidroponik dan tidak merusak keseimbangan pH serta EC larutan nutrisi apabila digunakan sesuai dosis anjuran.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Berapa lama hasil kerja APUSGUARD terlihat?</div>
+        <div class="faq-a">Untuk penggunaan kuratif (tanaman sudah terinfeksi), penurunan gejala biasanya terlihat dalam 5–7 hari pertama. Untuk penggunaan preventif, efek perlindungan aktif setelah 24–48 jam aplikasi pertama.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Bagaimana cara menyimpan APUSGUARD?</div>
+        <div class="faq-a">Simpan di tempat sejuk dan terhindar dari sinar matahari langsung. Suhu penyimpanan ideal 15–25°C. Setelah dibuka, gunakan dalam 3 bulan. Kocok botol sebelum setiap penggunaan untuk memastikan senyawa aktif tercampur rata.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Apakah bisa dikombinasikan dengan pupuk cair lain?</div>
+        <div class="faq-a">APUSGUARD dapat dikombinasikan dengan pupuk organik cair. Namun, hindari mencampurkan langsung dengan fungisida kimia sintetis karena dapat mengurangi efektivitas senyawa bioaktif alami yang terkandung di dalamnya.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Apakah ada garansi produk?</div>
+        <div class="faq-a">Ya, kami memberikan garansi penggantian produk apabila kondisi fisik produk rusak saat diterima atau tidak sesuai spesifikasi. Hubungi kami via WhatsApp Business dalam 24 jam setelah produk diterima disertai foto bukti.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Apakah APUSGUARD sudah terdaftar resmi?</div>
+        <div class="faq-a">Penelitian yang mendasari APUSGUARD telah mendapatkan perlindungan Hak Kekayaan Intelektual (HAKI) dari Kementerian Hukum dan HAM RI dengan nomor pencatatan EC00202490869, yang menjamin keabsahan dan kebaruan inovasi ini secara hukum di Indonesia.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">APUS<span>GUARD</span></div>
+  <div class="footer-tagline">Hama Minggat, Panen Melesat.</div>
+  <div class="haki-footer">HAKI No. EC00202490869 · Kemenkumham RI · 2024</div>
+  <div class="footer-links">
+    <a href="#keunggulan">Keunggulan</a>
+    <a href="#panduan">Panduan Dosis</a>
+    <a href="#harga">Harga</a>
+    <a href="#beli">Beli Sekarang</a>
+    <a href="#faq">FAQ</a>
+    <a href="https://wa.me/6281234567890">WhatsApp</a>
+  </div>
+  <div class="footer-copy">© 2025 APUSGUARD · MAN 2 Kota Malang · Inovasi Bio-Fungisida Hayati Lokal Indonesia</div>
+</footer>
+
+<script>
+  // Tab panduan dosis
+  function switchTab(tab) {
+    document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+    document.getElementById('tab-' + tab).classList.add('active');
+    event.target.classList.add('active');
+  }
+
+  // FAQ accordion
+  function toggleFaq(el) {
+    const item = el.parentElement;
+    const wasOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!wasOpen) item.classList.add('open');
+  }
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
